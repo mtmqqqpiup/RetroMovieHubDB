@@ -1,11 +1,17 @@
+import dotenv
 import pyodbc
+import os
+from dotenv import load_dotenv
+
+# Đọc file .env
+load_dotenv()
 
 def get_db_connection():
     conn_str = (
-        "Driver={ODBC Driver 17 for SQL Server};"
-        "Server=mtmquan\SQLEXPRESS;"
-        "Database=RetroMovieHub;"
-        "Trusted_Connection=yes;"
+        f"Driver={{{os.getenv('DB_DRIVER')}}};"
+        f"Server={os.getenv('DB_SERVER')};"
+        f"Database={os.getenv('DB_NAME')};"
+        f"Trusted_Connection={os.getenv('DB_TRUSTED_CONNECTION')};"
     )
     return pyodbc.connect(conn_str)
 
