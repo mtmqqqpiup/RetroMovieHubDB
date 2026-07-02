@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title data-i18n="pageTitle">Retro Movie Hub</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="Header_first_block">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo của Retro Movie Hub" data-i18n-alt="headerLogoAlt">
+        </div>
+
+        <div class="Header_second_block">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="movie" data-i18n-placeholder="searchPlaceholder" placeholder="Nhập tên phim...">
+            <button class="search-btn" id="searchButton" type="button"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+        <div class="Header_third_block">
+            <ul>
+                <li><a href="https://phimhay.co.in/danh-sach/phim-chieu-rap/" data-i18n="movieTheater">Phim Chiếu Rạp</a></li>
+                <li><a href="https://phimhay.co.in/danh-sach/phim-bo/" data-i18n="series">Phim Bộ</a></li>
+                <li><a href="https://phimhay.co.in/danh-sach/phim-le/" data-i18n="movieSingle">Phim Lẻ</a></li>
+                <li><div class="Category"><span data-i18n="genre">Thể Loại</span> <i class="fa-solid fa-angle-down"></i>
+                    <ul class="Category-dropdown">
+                        <ul>
+                            <li><a href="https://phimhay.co.in/danh-sach/phim-hanh-dong/" data-i18n="genreAction">Hành Động</a></li>
+                            <li><a href="https://phimhay.co.in/danh-sach/phim-kinh-di/" data-i18n="genreHorror">Kinh Dị</a></li>
+                            <li><a href="https://phimhay.co.in/danh-sach/phim-tinh-cam/" data-i18n="genreRomance">Tình Cảm</a></li>
+                            <li><a href="https://phimhay.co.in/danh-sach/phim-vien-tuong/" data-i18n="genreSciFi">Viễn Tưởng</a></li>
+                            <li><a href="https://phimhay.co.in/danh-sach/phim-hoat-hinh/" data-i18n="genreAnimation">Hoạt Hình</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="https://phimhay.co.in/danh-sach/phim-hanh-dong/" data-i18n="genreAction">Hành Động</a></li>
+                            <li><a href="https://phimhay.co.in/danh-sach/phim-kinh-di/" data-i18n="genreHorror">Kinh Dị</a></li>
+                            <li><a href="https://phimhay.co.in/danh-sach/phim-tinh-cam/" data-i18n="genreRomance">Tình Cảm</a></li>
+                            <li><a href="https://phimhay.co.in/danh-sach/phim-vien-tuong/" data-i18n="genreSciFi">Viễn Tưởng</a></li>
+                            <li><a href="https://phimhay.co.in/danh-sach/phim-hoat-hinh/" data-i18n="genreAnimation">Hoạt Hình</a></li>
+                        </ul>
+                    </ul>
+                    </div>
+                </li>
+                <li><span data-i18n="country">Quốc Gia</span> <i class="fa-solid fa-angle-down"></i></li>
+                <li data-i18n="login">Đăng nhập</li>
+                <li><div class="language-selector">
+                    <div class="current-lang" id="display-lang">Đang tải...</div>
+                    <ul class="lang-dropdown">
+                        <li onclick="setLanguage('en')" data-i18n="langEnglish">English</li>
+                        <li onclick="setLanguage('ko')" data-i18n="langKorean">Tiếng Hàn</li>
+                        <li onclick="setLanguage('ja')" data-i18n="langJapanese">Tiếng Nhật</li>
+                        <li onclick="setLanguage('zh')" data-i18n="langChinese">Tiếng Trung</li>
+                        <li onclick="setLanguage('vi')" data-i18n="langVietnamese">Tiếng Việt</li>
+                    </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="movie-section">
+        <div class="movie-section-header">
+            <div>
+                <h2 data-i18n="NewestMovies">Phim mới nhất</h2>
+                <p class="movie-section-subtitle" data-i18n="ListTop10">Top 10 phim cập nhật gần đây, mượt mà trên mọi thiết bị.</p>
+            </div>
+            <div class="movie-section-actions">
+                <button type="button" class="slider-btn prev-btn" aria-label="Previous movies"><i class="fa-solid fa-chevron-left"></i></button>
+                <button type="button" class="slider-btn next-btn" aria-label="Next movies"><i class="fa-solid fa-chevron-right"></i></button>
+                <button type="button" class="view-all-btn" id="viewAllBtn" data-i18n="ShowAll">Xem tất cả</button>
+            </div>
+        </div>
+        <div class="newestmovie-wrapper">
+            <div class="newestmovie-container" id="movieContainer"></div>
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <div class="movie-detail-modal hidden" id="movieDetailModal">
+        <div class="movie-detail-overlay" id="modalOverlay"></div>
+        <div class="movie-detail-panel">
+            <button type="button" class="modal-close-btn" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="detail-poster-wrapper">
+                <img class="detail-poster" id="detailPoster" src="/static/images/logo.png" alt="Poster phim">
+            </div>
+            <div class="detail-content">
+                <span class="detail-rank" id="detailRank">#1</span>
+                <h3 class="detail-title" id="detailTitle">Phim mới nhất</h3>
+                <p class="detail-meta" id="detailMeta">Ngày phát hành: ...</p>
+                <p class="detail-description" id="detailDescription">Thông tin chi tiết phim đang được cập nhật. Nhấn XEM PHIM để bắt đầu.</p>
+                <button type="button" class="watch-btn modal-watch-btn" id="modalWatchBtn">XEM PHIM</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
